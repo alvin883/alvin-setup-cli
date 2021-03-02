@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 
-const { done: styleDone } = require("./logStyle");
+const { done: styleDone } = require("../../logStyle");
 
 const replaceNpmCommand = (folderName) => {
   const filePath = path.join(process.cwd(), folderName, "package.json");

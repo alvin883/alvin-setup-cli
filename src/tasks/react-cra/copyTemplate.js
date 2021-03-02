@@ -7,7 +7,7 @@ const ncpOptions = {
   clobber: true,
 };
 
-const { done: styleDone, error: styleError } = require("./logStyle");
+const { done: styleDone, error: styleError } = require("../../logStyle");
 
 /**
  * Copy the template folder
