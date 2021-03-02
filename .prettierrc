@@ -1,0 +1,24 @@
+{
+    "overrides": [
+        {
+            "files": "**.{js,jsx}",
+            "options": {
+                "trailingComma": "all",
+                "tabWidth": 2,
+                "useTabs": false
+            }
+        },
+        {
+            "files": [
+                ".vscode/**",
+                ".babelrc",
+                ".prettierrc",
+                "jsconfig.json",
+                "**.{css,scss}"
+            ],
+            "options": {
+                "tabWidth": 4
+            }
+        }
+    ]
+}
