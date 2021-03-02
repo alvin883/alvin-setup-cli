@@ -6,10 +6,10 @@
   "author": "Alvin Novian<alvinnovian883@gmail.com>",
   "license": "MIT",
   "private": false,
-  "homepage": "https://github.com/alvin883/automate-setup-react-cra",
+  "homepage": "https://github.com/alvin883/alvin-setup-cli",
   "repository": {
     "type": "git",
-    "url": "https://github.com/alvin883/automate-setup-react-cra.git"
+    "url": "https://github.com/alvin883/alvin-setup-cli.git"
   },
   "bin": {
     "@just_anonoym883/alvin-setup-cli": "bin/run.js"

@@ -1,4 +1,10 @@
-# Create a new setup option
+# alvin-setup-cli
+
+[![npm (scoped)](https://img.shields.io/npm/v/alvin-setup-cli.svg)](https://www.npmjs.com/package/alvin-setup-cli)
+
+One liner script to manage all of my setup
+
+### How to create a new setup option?
 
 - Open `src/cli.js`
 - Inside the `questionsPrompt` function there is `questions`, add new option object
