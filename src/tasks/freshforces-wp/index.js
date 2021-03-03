@@ -5,6 +5,8 @@ const logStyle = require("../../logStyle");
 const replaceThemedomain = require("./replace-themedomain");
 const cloneProjectStarter = require("./clone-project-starter");
 const replaceProjectThemeFolder = require("./replace-project-theme-folder");
+const moveFilesToRoot = require("./move-files-to-root");
+const removeGitProjectStarter = require("./remove-git-project-starter");
 
 const questionsPrompt = async () => {
   const dirname = process.cwd().split(path.sep);
@@ -39,8 +41,12 @@ const setupFreshforcesWp = async () => {
     );
   }
 
+  const tempFolder = "_temp_setup";
   const options = await questionsPrompt();
-  await cloneProjectStarter(options.project_name);
+
+  await cloneProjectStarter(options.project_name, tempFolder);
+  await removeGitProjectStarter(tempFolder);
+  await moveFilesToRoot(tempFolder);
   await replaceThemedomain(options.project_name, options.project_name);
   await replaceProjectThemeFolder(options.project_name, options.project_name);
 };
