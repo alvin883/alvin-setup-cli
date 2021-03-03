@@ -1,7 +1,7 @@
 const remove = require("../../utils/remove");
 
 const removeGitProjectStarter = async (tempFolder) => {
-  remove(`${tempFolder}\\.git`);
+  remove(`.git`);
 };
 
 module.exports = removeGitProjectStarter;
