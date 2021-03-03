@@ -1,12 +1,22 @@
 const cp = require("child_process");
+const logStyle = require("../../logStyle");
 
 const replaceProjectThemeFolder = async (dirPath, projectName) => {
-  cp.execSync(`rename project-theme ${projectName}`, {
-    stdio: "inherit",
-    cwd: `./wp-content/themes/`,
-  });
+  try {
+    cp.execSync(`rename project-theme ${projectName}`, {
+      stdio: "inherit",
+      cwd: `./wp-content/themes/`,
+    });
 
-  return Promise.resolve();
+    console.log(
+      "%s Successfully changed project-theme folder name",
+      logStyle.done,
+    );
+
+    return Promise.resolve();
+  } catch (err) {
+    Promise.reject(err);
+  }
 };
 
 module.exports = replaceProjectThemeFolder;

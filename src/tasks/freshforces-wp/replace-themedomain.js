@@ -7,7 +7,7 @@ const replaceThemedomain = async (dirPath, newString) => {
     countOfMatchesByPaths,
     replaceInFilesOptions,
   } = await rif({
-    files: `./wp-content/themes/project-theme/**/*.php`,
+    files: `wp-content/themes/project-theme/**/*.php`,
     optionsForFiles: {
       ignore: ["**/node_modules/**"],
     },

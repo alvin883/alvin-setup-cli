@@ -9,22 +9,18 @@ const ncpOptions = {
 };
 
 async function copy(source, destination) {
-  _copy(source, destination, ncpOptions)
-    .then(() => {
-      console.log(
-        `%s Successfully copied ${source} to ${destination}`,
-        logStyle.done,
-      );
-      Promise.resolve();
-    })
-    .catch((err) => {
-      console.log(
-        `%s Error copying ${source} to ${destination}`,
-        logStyle.error,
-      );
-      Promise.reject();
-      process.exit(1);
-    });
+  try {
+    await _copy(source, destination, ncpOptions);
+    console.log(
+      `%s Successfully copied ${source} to ${destination}`,
+      logStyle.done,
+    );
+    return Promise.resolve();
+  } catch (err) {
+    console.log(`%s Error copying ${source} to ${destination}`, logStyle.error);
+    Promise.reject();
+    process.exit(1);
+  }
 }
 
 module.exports = copy;

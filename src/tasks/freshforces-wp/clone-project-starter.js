@@ -8,11 +8,10 @@ const cloneProjectStarter = async (dirPath, tempFolder) => {
       { stdio: "inherit" },
     );
     console.log("%s Successfully cloned git project-starter", logStyle.done);
+    return Promise.resolve();
   } catch (err) {
     console.error(err);
   }
-
-  return Promise.resolve();
 };
 
 module.exports = cloneProjectStarter;

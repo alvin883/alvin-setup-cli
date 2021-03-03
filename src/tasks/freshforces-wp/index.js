@@ -7,6 +7,9 @@ const cloneProjectStarter = require("./clone-project-starter");
 const replaceProjectThemeFolder = require("./replace-project-theme-folder");
 const moveFilesToRoot = require("./move-files-to-root");
 const removeGitProjectStarter = require("./remove-git-project-starter");
+const removeTempSetup = require("./remove-temp-setup");
+const replaceThemedomainCss = require("./replace-themedomain-css");
+const replaceGulpHost = require("./replace-gulp-host");
 
 const questionsPrompt = async () => {
   const dirname = process.cwd().split(path.sep);
@@ -49,6 +52,9 @@ const setupFreshforcesWp = async () => {
   await moveFilesToRoot(tempFolder);
   await replaceThemedomain(options.project_name, options.project_name);
   await replaceProjectThemeFolder(options.project_name, options.project_name);
+  await removeTempSetup(tempFolder);
+  await replaceThemedomainCss(options.project_name);
+  await replaceGulpHost(options.project_name);
 };
 
 module.exports = setupFreshforcesWp;
