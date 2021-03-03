@@ -1,6 +1,6 @@
 {
   "name": "alvin-setup-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "one line script to setup my tech stack",
   "main": "src/index.js",
   "author": "Alvin Novian<alvinnovian883@gmail.com>",
@@ -19,6 +19,7 @@
     "chalk": "^4.1.0",
     "esm": "^3.2.25",
     "inquirer": "^8.0.0",
-    "ncp": "^2.0.0"
+    "ncp": "^2.0.0",
+    "replace-in-files": "^3.0.0"
   }
 }
