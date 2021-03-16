@@ -11,6 +11,8 @@ const removeTempSetup = require("./remove-temp-setup");
 const replaceThemedomainCss = require("./replace-themedomain-css");
 const replaceGulpHost = require("./replace-gulp-host");
 const { setTimeout } = require("timers");
+const downloadWordpress = require("./download-wordpress");
+const unpackWordpress = require("./unpack-wordpress");
 
 const questionsPrompt = async () => {
   const dirname = process.cwd().split(path.sep);
@@ -48,6 +50,10 @@ const setupFreshforcesWp = async () => {
   const tempFolder = "_temp_setup";
   const options = await questionsPrompt();
 
+  await downloadWordpress();
+  await unpackWordpress();
+  await moveFilesToRoot("wordpress");
+
   await cloneProjectStarter(options.project_name, tempFolder);
   await moveFilesToRoot(tempFolder);
   await replaceThemedomain(options.project_name, options.project_name);
@@ -60,6 +66,7 @@ const setupFreshforcesWp = async () => {
   setTimeout(async function () {
     await removeGitProjectStarter(tempFolder);
     await removeTempSetup(tempFolder);
+    await removeTempSetup("wordpress");
   }, 1000);
 };
 
