@@ -13,6 +13,7 @@ const replaceGulpHost = require("./replace-gulp-host");
 const { setTimeout } = require("timers");
 const downloadWordpress = require("./download-wordpress");
 const unpackWordpress = require("./unpack-wordpress");
+const createDatabase = require("./create-database");
 
 const questionsPrompt = async () => {
   const dirname = process.cwd().split(path.sep);
@@ -23,7 +24,7 @@ const questionsPrompt = async () => {
       type: "input",
       name: "project_name",
       message:
-        "What's the project name? (used for theme-folder, DB name, wp-domain-name, domain local)",
+        "What's the project name?\n  * Only alphanumeric, dash(-), underscore(_) are allowed\n  * will be used for theme-folder, DB name, wp-domain-name, local domain\n  name:",
       default: currentDirectory,
     },
   ];
@@ -48,7 +49,15 @@ const setupFreshforcesWp = async () => {
   }
 
   const tempFolder = "_temp_setup";
-  const options = await questionsPrompt();
+  let options = await questionsPrompt();
+
+  // Match alphanumeric, dash(-) and underscore(_)
+  const stringTest = new RegExp(/^[a-zA-Z0-9_\-]*$/gm);
+  const isValidProjectName = stringTest.test(options.project_name);
+  if (!isValidProjectName) {
+    console.log("%s project_name contain forbidden char :(", logStyle.error);
+    options = await questionsPrompt();
+  }
 
   await downloadWordpress();
   await unpackWordpress();
@@ -60,6 +69,7 @@ const setupFreshforcesWp = async () => {
   await replaceProjectThemeFolder(options.project_name, options.project_name);
   await replaceThemedomainCss(options.project_name);
   await replaceGulpHost(options.project_name);
+  await createDatabase(options.project_name);
 
   // Make sure other git processes ID outside task has been done properly and
   // can be removed safely

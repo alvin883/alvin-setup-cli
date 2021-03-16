@@ -1,9 +1,11 @@
 const extract = require("extract-zip");
 const logStyle = require("../../logStyle");
+const path = require("path");
+const getUserCachePath = require("../../utils/get-user-cache-path");
 
 const unpackWordpress = async () => {
   try {
-    const file = "wordpress.zip";
+    const file = path.join(getUserCachePath(), "wordpress.zip");
     console.log("%s Unpacking WordPress ...", logStyle.process);
     await extract(file, { dir: process.cwd() });
     console.log("%s WordPress extraction complete!", logStyle.done);
