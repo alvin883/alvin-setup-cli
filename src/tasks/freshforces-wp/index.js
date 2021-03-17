@@ -14,6 +14,7 @@ const { setTimeout } = require("timers");
 const downloadWordpress = require("./download-wordpress");
 const unpackWordpress = require("./unpack-wordpress");
 const createDatabase = require("./create-database");
+const createWPConfig = require("./create-wp-config");
 
 const questionsPrompt = async () => {
   const dirname = process.cwd().split(path.sep);
@@ -48,7 +49,8 @@ const setupFreshforcesWp = async () => {
     );
   }
 
-  const tempFolder = "_temp_setup";
+  const tempSetupFolder = "_temp_setup";
+  const tempWordpressFolder = "_temp_wordpress";
   let options = await questionsPrompt();
 
   // Match alphanumeric, dash(-) and underscore(_)
@@ -61,22 +63,23 @@ const setupFreshforcesWp = async () => {
 
   await downloadWordpress();
   await unpackWordpress();
-  await moveFilesToRoot("wordpress");
+  await moveFilesToRoot(tempWordpressFolder);
 
-  await cloneProjectStarter(options.project_name, tempFolder);
-  await moveFilesToRoot(tempFolder);
+  await cloneProjectStarter(options.project_name, tempSetupFolder);
+  await moveFilesToRoot(tempSetupFolder);
   await replaceThemedomain(options.project_name, options.project_name);
   await replaceProjectThemeFolder(options.project_name, options.project_name);
   await replaceThemedomainCss(options.project_name);
   await replaceGulpHost(options.project_name);
   await createDatabase(options.project_name);
+  await createWPConfig(options.project_name);
 
   // Make sure other git processes ID outside task has been done properly and
   // can be removed safely
   setTimeout(async function () {
-    await removeGitProjectStarter(tempFolder);
-    await removeTempSetup(tempFolder);
-    await removeTempSetup("wordpress");
+    await removeGitProjectStarter(tempSetupFolder);
+    await removeTempSetup(tempSetupFolder);
+    await removeTempSetup(tempWordpressFolder);
   }, 1000);
 };
 

@@ -7,6 +7,7 @@ const createDatabase = async (databaseName) => {
     cp.execSync(`mysql -u root -e "CREATE DATABASE \`${databaseName}\`"`, {
       cwd: "C:\\laragon\\bin\\mysql\\mysql-5.7.24-winx64\\bin",
     });
+    return Promise.resolve();
   } catch (err) {
     const isDatabaseExist =
       err &&
@@ -27,7 +28,7 @@ const createDatabase = async (databaseName) => {
           message: "What's the database name?",
         },
       ]);
-      createDatabase(questionsPrompt.database_name);
+      await createDatabase(questionsPrompt.database_name);
     } else {
       console.log("%s Error while creating database", logStyle.error);
       Promise.reject();
