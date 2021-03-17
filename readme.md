@@ -4,6 +4,10 @@
 
 One liner script to manage all of my setup
 
+### How to use it?
+
+Just run `npx alvin-setup-cli` and you're good to go
+
 ### How to create a new setup option?
 
 - Open `src/cli.js`
