@@ -3,11 +3,11 @@ const logStyle = require("../../logStyle");
 const path = require("path");
 const getUserCachePath = require("../../utils/get-user-cache-path");
 
-const unpackWordpress = async () => {
+const unpackWordpress = async (tempWordpressFolder) => {
   try {
     const file = path.join(getUserCachePath(), "wordpress.zip");
     console.log("%s Unpacking WordPress ...", logStyle.process);
-    await extract(file, { dir: process.cwd() });
+    await extract(file, { dir: path.join(process.cwd(), tempWordpressFolder) });
     console.log("%s WordPress extraction complete!", logStyle.done);
     return Promise.resolve();
   } catch (err) {

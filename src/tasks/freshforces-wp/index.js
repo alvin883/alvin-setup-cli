@@ -34,21 +34,6 @@ const questionsPrompt = async () => {
 };
 
 const setupFreshforcesWp = async () => {
-  const confirmation = await inquirer.prompt([
-    {
-      type: "confirm",
-      name: "laragon_wp_installed",
-      message:
-        "Have you installed / run laragon WP quick app for this project?",
-    },
-  ]);
-  if (!confirmation.laragon_wp_installed) {
-    return console.log(
-      "%s Sorry, for now this setup doesn't support to automatically setup database, you need to run laragon quick app for WordPress first, then start this setup",
-      logStyle.error,
-    );
-  }
-
   const tempSetupFolder = "_temp_setup";
   const tempWordpressFolder = "_temp_wordpress";
   let options = await questionsPrompt();
@@ -62,8 +47,8 @@ const setupFreshforcesWp = async () => {
   }
 
   await downloadWordpress();
-  await unpackWordpress();
-  await moveFilesToRoot(tempWordpressFolder);
+  await unpackWordpress(tempWordpressFolder);
+  await moveFilesToRoot(path.join(tempWordpressFolder, "wordpress"));
 
   await cloneProjectStarter(options.project_name, tempSetupFolder);
   await moveFilesToRoot(tempSetupFolder);
