@@ -15,6 +15,8 @@ const downloadWordpress = require("./download-wordpress");
 const unpackWordpress = require("./unpack-wordpress");
 const createDatabase = require("./create-database");
 const createWPConfig = require("./create-wp-config");
+const runNpmInstall = require("./run-npm-install");
+const completion = require("./completion");
 
 const questionsPrompt = async () => {
   const dirname = process.cwd().split(path.sep);
@@ -51,6 +53,7 @@ const setupFreshforcesWp = async () => {
   await moveFilesToRoot(path.join(tempWordpressFolder, "wordpress"));
 
   await cloneProjectStarter(options.project_name, tempSetupFolder);
+  await removeGitProjectStarter(tempSetupFolder);
   await moveFilesToRoot(tempSetupFolder);
   await replaceThemedomain(options.project_name, options.project_name);
   await replaceProjectThemeFolder(options.project_name, options.project_name);
@@ -62,9 +65,10 @@ const setupFreshforcesWp = async () => {
   // Make sure other git processes ID outside task has been done properly and
   // can be removed safely
   setTimeout(async function () {
-    await removeGitProjectStarter(tempSetupFolder);
     await removeTempSetup(tempSetupFolder);
     await removeTempSetup(tempWordpressFolder);
+    await runNpmInstall(options.project_name);
+    await completion(options.project_name);
   }, 1000);
 };
 

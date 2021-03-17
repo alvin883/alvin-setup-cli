@@ -26,6 +26,7 @@ const createDatabase = async (mysqlPath, databaseName) => {
     cp.execSync(`mysql -u root -e "CREATE DATABASE \`${databaseName}\`"`, {
       cwd: mysqlPath,
     });
+    console.log("%s Database created!", logStyle.done);
     return Promise.resolve();
   } catch (err) {
     const isDatabaseExist =
