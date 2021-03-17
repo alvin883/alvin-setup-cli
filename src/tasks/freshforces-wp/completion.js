@@ -10,6 +10,7 @@ const completion = async (projectName) => {
   );
   console.log(`    ${chalk.cyanBright("npm start")}`);
   console.log("\n");
+  return Promise.resolve();
 };
 
 module.exports = completion;

@@ -1,6 +1,6 @@
 {
   "name": "alvin-setup-cli",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "one line script to setup my tech stack",
   "main": "src/index.js",
   "author": "Alvin Novian<alvinnovian883@gmail.com>",
