@@ -1,15 +1,24 @@
 const path = require("path");
-const aliases = require("./import-aliases");
+const jsconfig = require("./jsconfig.json");
 
-const resolvedAliases = Object.fromEntries(
-  Object.entries(aliases).map(([key, value]) => [
-    key,
-    path.resolve(__dirname, value),
-  ]),
-);
+/**
+ * @param {{[key: string]: string[]}} paths
+ * @param {(targetPath: string) => string} mapper
+ */
+const aliases = (paths = {}, mapper = (targetPath) => targetPath) => {
+  let aliases = {};
+  Object.keys(paths).forEach((key) => {
+    const _key = key.replace("/*", "");
+    const _val = paths[key][0].replace("/*", "");
+    aliases[_key] = mapper(_val);
+  });
+  return aliases;
+};
 
 module.exports = {
   webpack: {
-    alias: resolvedAliases,
+    alias: aliases(jsconfig?.compilerOptions?.paths, (targetPath) =>
+      path.resolve(__dirname, targetPath),
+    ),
   },
 };
