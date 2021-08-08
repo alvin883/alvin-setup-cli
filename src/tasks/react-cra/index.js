@@ -24,7 +24,7 @@ const runCreateReactApp = async () => {
   console.log("%s Finish installing Craco and SASS", styleDone);
   console.log("%s Copying setup template ...", styleProcess);
 
-  const copySource = path.join(__dirname, "template");
+  const copySource = path.join(__dirname, "../../templates/react-cra");
   const copyDest = path.join(process.cwd(), options.folderName);
   copyTemplate(copySource, copyDest, () => {
     console.log("%s Template copied successfully", styleDone);
