@@ -1,6 +1,9 @@
-const inquirer = require("inquirer");
+import inquirer from "inquirer";
 
-const prompt = async () => {
+/**
+ * @returns {{ folderName: string }}
+ */
+export const prompt = async () => {
   const folderName = [
     {
       type: "input",
@@ -10,7 +13,5 @@ const prompt = async () => {
     },
   ];
 
-  return {...await inquirer.prompt(folderName)}
+  return { ...(await inquirer.prompt(folderName)) };
 };
-
-module.exports = prompt;

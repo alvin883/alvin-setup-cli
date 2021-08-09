@@ -1,7 +1,7 @@
-const cp = require("child_process");
-const logStyle = require("../logStyle");
+import cp from "child_process";
+import { logStyle } from "./log-style";
 
-const remove = async (source) => {
+export const remove = async (source) => {
   let errorCount = 0;
   try {
     cp.execSync(`RD /S /Q ${source}`);
@@ -20,5 +20,3 @@ const remove = async (source) => {
     }
   }
 };
-
-module.exports = remove;

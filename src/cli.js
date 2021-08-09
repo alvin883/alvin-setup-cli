@@ -1,4 +1,5 @@
-const inquirer = require("inquirer");
+import inquirer from "inquirer";
+import { goAsync } from "./utils";
 
 const questionsPrompt = async () => {
   const questions = [
@@ -42,7 +43,9 @@ const main = async () => {
   const options = await questionsPrompt();
 
   // Run task based on selected `setup_type`
-  require(`./tasks/${options.setup_type}/index.js`)();
+  const task = require(`./tasks/${options.setup_type}/index.js`);
+  const [, error] = await goAsync(task());
+  if (error) process.exit(1);
 };
 
 export const run = () => main();

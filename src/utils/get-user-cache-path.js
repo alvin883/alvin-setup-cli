@@ -1,10 +1,10 @@
-const path = require("path");
+import path from "path";
 
 /**
  * @returns {String} Node path ex. C:/Users/alvin/AppData/alvin-setup-cli/
  * @see https://stackoverflow.com/a/26227660/6049731
  */
-const getUserCachePath = () => {
+export const getUserCachePath = () => {
   const userPath =
     process.env.APPDATA ||
     (process.platform == "darwin"
@@ -13,5 +13,3 @@ const getUserCachePath = () => {
   const userCachePath = path.join(userPath, "alvin-setup-cli");
   return userCachePath;
 };
-
-module.exports = getUserCachePath;

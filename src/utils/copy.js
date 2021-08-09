@@ -1,26 +1,23 @@
-const ncp = require("ncp").ncp;
-const { promisify } = require("util");
-const _copy = promisify(ncp);
-const logStyle = require("../logStyle");
+import { copy as _copy } from "fs-extra";
+import { goAsync } from "./go-async";
+import { logStyle, log } from "./log-style";
 
-const ncpOptions = {
-  // Overwrite files that already exist in destination  folder
-  clobber: true,
-};
+/**
+ * Copy file or folder.
+ *
+ * Note: if `source` is a directory it will copy everything inside of this
+ * directory, not the entire directory itself, [see this link](https://github.com/jprichardson/node-fs-extra/blob/HEAD/docs/copy-sync.md)
+ *
+ * @param {string} source
+ * @param {string} destination
+ * @param {boolean} [silent] whether it should output operation detail to console or not
+ * @deprecated use fs-extra copy instead
+ */
+export async function copy(source, destination) {
+  const [, error] = await goAsync(
+    _copy(source, destination, { overwrite: true }),
+  );
 
-async function copy(source, destination) {
-  try {
-    await _copy(source, destination, ncpOptions);
-    console.log(
-      `%s Successfully copied ${source} to ${destination}`,
-      logStyle.done,
-    );
-    return Promise.resolve();
-  } catch (err) {
-    console.log(`%s Error copying ${source} to ${destination}`, logStyle.error);
-    Promise.reject();
-    process.exit(1);
-  }
+  if (error) return Promise.reject(error);
+  return Promise.resolve(true);
 }
-
-module.exports = copy;
